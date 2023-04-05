@@ -196,9 +196,7 @@ class Library:
 
 # Main loop
 def main():
-    """
-        Runs the main loop of the Library Management System.
-    """
+    """Runs the main loop of the Library Management System."""
     library = Library()
 
     while True:
