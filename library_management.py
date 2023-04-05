@@ -163,3 +163,32 @@ class Library:
         user.save()
         self.users.append(user)
         print("User created successfully!")
+
+    def add_book(self):
+        """
+        Prompts the user to enter the details of a book and adds the book to the catalog.
+        Returns:None
+        """
+        title = input("Enter the title of the book: ")
+        author = input("Enter the author of the book: ")
+        genre = input("Enter the genre of the book: ")
+
+        book = Book(title, author, genre)
+        self.books.append(book)
+        print("Book added successfully!")
+
+    def remove_book(self):
+        """
+        Prompts the user to enter the title of a book and removes the book from the catalog, if it is not checked out.
+        Returns: None
+        """
+        title = input("Enter the title of the book to remove: ")
+        for i, book in enumerate(self.books):
+            if book.title == title:
+                if book.borrower is not None:
+                    print("This book is currently checked out and cannot be removed.")
+                else:
+                    del self.books[i]
+                    print("Book removed successfully!")
+                return
+        print("Book not found.")
