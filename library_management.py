@@ -62,6 +62,21 @@ class Library:
         """
         self.books = []
         self.users = self.load_users()
+
+    def load_users(self):
+        """
+        Loads user data from the 'users.csv' file and returns a list of User objects.
+        Parameters: None
+        Returns: users (list): A list of User objects.
+        """
+        users = []
+        with open('users.csv', 'r') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                user = User(row[0], row[1], row[2])
+                users.append(user)
+        return users
+
     def login(self):
         """
         Authenticates and authorizes the user by checking their username, password, and role against the data in the 'users.csv' file.
@@ -79,3 +94,25 @@ class Library:
 
         print("Invalid username or password.")
         return None
+
+    def signup(self):
+        """
+        Creates a new User object with the user's specified username, password, and role, and saves it to the 'users.csv' file.
+        Parameters:None
+        Returns: None
+        """
+        while True:
+            username = input("Enter a username: ")
+            # Check if the username already exists
+            for user in self.users:
+                if user.username == username:
+                    print("Username already exists. Please choose a different username.")
+                    break
+            else:
+                break
+        password = input("Enter a password: ")
+        role = input("Enter your role:(librarian or borrower)")
+        user = User(username, password, role)
+        user.save()
+        self.users.append(user)
+        print("User created successfully!")
