@@ -62,21 +62,20 @@ class Library:
         """
         self.books = []
         self.users = self.load_users()
+    def login(self):
+        """
+        Authenticates and authorizes the user by checking their username, password, and role against the data in the 'users.csv' file.
+        Parameters: None
+        Returns: user (User): The User object corresponding to the authenticated user, or None if authentication fails.
+        """
+        username = input("Enter your username: ")
+        password = input("Enter your password: ")
+        role = input("Enter your role:(librarian or borrower)")
 
-        def login(self):
-            """
-            Authenticates and authorizes the user by checking their username, password, and role against the data in the 'users.csv' file.
-            Parameters: None
-            Returns: user (User): The User object corresponding to the authenticated user, or None if authentication fails.
-            """
-            username = input("Enter your username: ")
-            password = input("Enter your password: ")
-            role = input("Enter your role:(librarian or borrower)")
+        for user in self.users:
+            if user.username == username and user.password == password and user.role == role:
+                print(f"Login successful! Welcome, {user.username}!")
+                return user
 
-            for user in self.users:
-                if user.username == username and user.password == password and user.role == role:
-                    print(f"Login successful! Welcome, {user.username}!")
-                    return user
-
-            print("Invalid username or password.")
-            return None
+        print("Invalid username or password.")
+        return None
