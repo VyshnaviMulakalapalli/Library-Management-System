@@ -192,3 +192,50 @@ class Library:
                     print("Book removed successfully!")
                 return
         print("Book not found.")
+
+
+# Main loop
+def main():
+    """Runs the main loop of the Library Management System."""
+    library = Library()
+
+    while True:
+        print("\n----- Library Management System -----")
+        print("1. Login")
+        print("2. Signup")
+        print("3. Add Book")
+        print("4. Remove Book")
+        print("5. Checkout Book")
+        print("6. Return Book")
+        print("7. Exit")
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            user_type = library.login()
+            if user_type == "librarian":
+                # Code for librarian
+                pass
+            elif user_type == "borrower":
+                # Code for borrower
+                pass
+        elif choice == "2":
+            library.signup()
+        elif choice == "3":
+            library.add_book()
+        elif choice == "4":
+            library.remove_book()
+        elif choice == "5":
+            borrower_name = input("Enter your name: ")
+            library.checkout_book(borrower_name)
+        elif choice == "6":
+            borrower_name = input("Enter your name: ")
+            library.return_book(borrower_name)
+        elif choice == "7":
+            print("Thank you for using the Library Management System!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
