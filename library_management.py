@@ -79,3 +79,51 @@ class Library:
 
         print("Invalid username or password.")
         return None
+
+    def checkout_book(self, borrower):
+        """
+        Displays the list of available books and prompts the borrower to select a book to checkout. If the selected
+        book is not available, an error message is displayed.
+        Parameters:borrower (str): The name of the borrower.
+        Returns: None
+        """
+        print("Books available for checkout:")
+        for i, book in enumerate(self.books):
+            if book.borrower is None:
+                print(f"{i + 1}. {book.title} by {book.author}")
+        book_index = int(input("Enter the number of the book you want to checkout (or 0 to cancel): ")) - 1
+        if book_index == -1:
+            return
+        if book_index < 0 or book_index >= len(self.books):
+            print("Invalid book number.")
+            return
+        if self.books[book_index].borrower is not None:
+            print("This book is already checked out.")
+            return
+        self.books[book_index].borrower = borrower
+        print("Book checked out successfully!")
+
+    def return_book(self, borrower):
+        """
+        Displays the list of books checked out by the borrower and prompts the borrower to select a book to return. If
+        the selected book is not checked out by the borrower, an error message is displayed.
+        Parameters:
+        borrower (str): The name of the borrower.
+        Returns: None
+        """
+        print("Books currently checked out by you:")
+        for i, book in enumerate(self.books):
+            if book.borrower == borrower:
+                print(f"{i + 1}. {book.title} by {book.author}")
+        book_index = int(input("Enter the number of the book you want to return (or 0 to cancel): ")) - 1
+        if book_index == -1:
+            return
+        if book_index < 0 or book_index >= len(self.books):
+            print("Invalid book number.")
+            return
+        if self.books[book_index].borrower != borrower:
+            print("This book is not checked out by you.")
+            return
+        self.books[book_index].borrower = None
+        print("Book returned successfully!")
+
