@@ -170,3 +170,14 @@ class Library:
                     self.books.append(book)
                 except IndexError:
                     print(f"Error loading book data: {row}")
+
+    def save_books(self):
+        """
+        Saves the current state of the self.books list to the 'books.csv' file.
+        Parameters: None
+        Returns: None
+        """
+        with open('books.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            for book in self.books:
+                writer.writerow([book.title, book.author, book.genre])
