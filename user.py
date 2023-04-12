@@ -40,3 +40,34 @@ class User:
             writer = csv.writer(file)
             writer.writerows(rows)
         print("Account deleted successfully")
+
+    def edit_account(self, new_username, new_password, new_role):
+        """
+        Edits the user's account with the specified new username, password, and role.
+
+        Parameters:
+        new_username (str): The new username to set for the user.
+        new_password (str): The new password to set for the user.
+        new_role (str): The new role to set for the user, either 'Librarian' or 'Borrower'.
+
+        Returns: None
+        """
+        current_user = None
+        updated_users = []
+        with open('users.csv', newline='') as csvfile:
+            reader = csv.reader(csvfile)
+            for row in reader:
+                if row[0] == self.username:
+                    current_user = row
+                    updated_users.append([new_username, new_password, new_role])
+                else:
+                    updated_users.append(row)
+
+        with open('users.csv', 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            for row in updated_users:
+                writer.writerow(row)
+
+        self.username = new_username
+        self.password = new_password
+        self.role = new_role
