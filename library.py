@@ -181,3 +181,24 @@ class Library:
             writer = csv.writer(file)
             for book in self.books:
                 writer.writerow([book.title, book.author, book.genre])
+
+    def search_books(self, query):
+        """
+        Searches for books in the library catalog by title or author and returns a list of books that match the query.
+        Parameters:
+        query (str): The search query to match against book titles and authors.
+        Returns:
+        books (list): A list of books that match the query.
+        """
+        books = []
+        with open('books.csv', mode='r') as book_file:
+            reader = csv.reader(book_file)
+            # next(reader)  # skip header row
+            for row in reader:
+                title = row[0]
+                author = row[1]
+                if query.lower() in title.lower() or query.lower() in author.lower():
+                    book = Book(title, author, row[2])
+                    print(f"{book.title}, {book.author}, {book.genre}")
+                    books.append(book)
+        return books
