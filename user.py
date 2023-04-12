@@ -29,3 +29,14 @@ class User:
         with open('users.csv', 'a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([self.username, self.password, self.role])
+
+    def delete_account(self):
+        """Deletes the user's account from the 'users.csv' file."""
+        with open('users.csv', 'r', newline='') as file:
+            reader = csv.reader(file)
+            rows = [row for row in reader if row[0] != self.username]
+
+        with open('users.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(rows)
+        print("Account deleted successfully")

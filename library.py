@@ -158,3 +158,15 @@ class Library:
         user.save()
         self.users.append(user)
         print("User created successfully!")
+
+    def load_books(self):
+        """Load book data from a CSV file and append it to the books list."""
+        with open('books.csv', mode='r') as book_file:
+            reader = csv.reader(book_file)
+            # next(reader)  # skip header row
+            for row in reader:
+                try:
+                    book = Book(row[0], row[1], row[2])
+                    self.books.append(book)
+                except IndexError:
+                    print(f"Error loading book data: {row}")
