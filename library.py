@@ -247,10 +247,8 @@ class Library:
     def recommend_books(self, interests):
         """
         Recommends books to the user based on their interests.
-
         Parameters:
         interests (list): A list of genres or keywords that the user is interested in.
-
         Returns:
         recommended_books (list): A list of books that match the user's interests.
         """
