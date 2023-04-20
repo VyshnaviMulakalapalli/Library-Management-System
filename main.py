@@ -3,12 +3,10 @@ from library import Library
 from user import User
 
 
-
 # Main loop
 def main():
     """Runs the main loop of the Library Management System."""
     library = Library()
-
 
     while True:
         print("\n----- Library Management System -----")
@@ -28,32 +26,47 @@ def main():
                     print("3. Checkout Book")
                     print("4. Return Book")
                     print("5. Search book")
-                    print("6. Edit account")
-                    print("7. Delete account")
-                    print("8. Log out")
+                    print("6. Reserve Book")
+                    print("7. Get book recommendation")
+                    print("8. Edit account")
+                    print("9. Delete account")
+                    print("10. Log out")
                     librarian_choice = input("Enter your choice: ")
                     if librarian_choice == "1":
                         library.add_book()
                     elif librarian_choice == "2":
                         library.remove_book()
                     elif librarian_choice == "3":
-                        borrower_name = input("Enter borrower name: ")
+                        borrower_name = user_type.username
                         library.checkout_book(borrower_name)
                     elif librarian_choice == "4":
-                        borrower_name = input("Enter borrower name: ")
+                        borrower_name = user_type.username
                         library.return_book(borrower_name)
                     elif librarian_choice == "5":
                         title_or_author = input("Enter book title or author name: ")
                         library.search_books(title_or_author)
                     elif librarian_choice == "6":
+                        title = input("Enter book title name to reserve: ")
+                        user = user_type.username
+                        library.reserve_book(user, title)
+                    elif librarian_choice == "7":
+                        interests = input("Enter your interests (separated by commas): ").split(",")
+                        recommended_books = library.recommend_books(interests)
+                        if len(recommended_books) == 0:
+                            print("No books found.")
+                        else:
+                            print(f"Recommended books:")
+                            for book in recommended_books:
+                                print(f"- {book.title} by {book.author} ({book.genre})")
+                    elif librarian_choice == "8":
                         new_username = input("Enter your username: ")
                         new_password = input("Enter your password: ")
                         new_role = input("Enter your role:(librarian or borrower)")
                         user.edit_account(new_username, new_password, new_role)
-                    elif librarian_choice == "7":
+                    elif librarian_choice == "9":
                         user.delete_account()
 
-                    elif librarian_choice == "8":
+                    elif librarian_choice == "10":
                         break
 
                     else:
@@ -65,28 +78,34 @@ def main():
                     print("1. Checkout Book")
                     print("2. Return Book")
                     print("3. Search Books")
-                    print("4. Edit account")
-                    print("5. Delete account")
-                    print("6. Logout")
+                    print("4. Reserve Books")
+                    print("5. Get book recommendation")
+                    print("6. Edit account")
+                    print("7. Delete account")
+                    print("8. Logout")
                     borrower_choice = input("Enter your choice: ")
                     if borrower_choice == "1":
-                        borrower_name = input("Enter borrower name: ")
+                        borrower_name = user_type.username
                         library.checkout_book(borrower_name)
                     elif borrower_choice == "2":
-                        borrower_name = input("Enter borrower name: ")
+                        borrower_name = user_type.username
                         library.return_book(borrower_name)
                     elif borrower_choice == "3":
                         title_or_author = input("Enter book title or author name: ")
                         library.search_books(title_or_author)
                     elif borrower_choice == "4":
+                        title = input("Enter book title name to reserve: ")
+                        user = user_type.username
+                        library.reserve_book(user, title)
+                    elif borrower_choice == "6":
                         new_username = input("Enter your username: ")
                         new_password = input("Enter your password: ")
                         new_role = input("Enter your role:(librarian or borrower)")
                         user.edit_account(new_username, new_password, new_role)
-                    elif borrower_choice == "5":
+                    elif borrower_choice == "7":
                         user.delete_account()
 
-                    elif borrower_choice == "6":
+                    elif borrower_choice == "8":
                         # library.logout()
                         break
                     else:
