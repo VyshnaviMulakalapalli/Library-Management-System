@@ -243,3 +243,21 @@ class Library:
                 self.save_checked_out_books()
                 return
         print("Book not found.")
+
+    def recommend_books(self, interests):
+        """
+        Recommends books to the user based on their interests.
+
+        Parameters:
+        interests (list): A list of genres or keywords that the user is interested in.
+
+        Returns:
+        recommended_books (list): A list of books that match the user's interests.
+        """
+        recommended_books = []
+        for book in self.books:
+            for interest in interests:
+                if interest.lower() in book.genre.lower() or interest.lower() in book.title.lower():
+                    recommended_books.append(book)
+                    break
+        return recommended_books
