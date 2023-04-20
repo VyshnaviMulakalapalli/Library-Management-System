@@ -202,3 +202,17 @@ class Library:
                     print(f"{book.title}, {book.author}, {book.genre}")
                     books.append(book)
         return books
+
+    def save_checked_out_books(self):
+        """
+        Saves the data of all checked out books to the 'checked_out_books.csv' file.
+        Parameters: None
+        Returns: None
+        """
+        with open('checked_out_books.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(['Title', 'Author', 'Genre', 'Borrower'])
+            for book in self.books:
+                if book.borrower is not None:
+                    writer.writerow(
+                        [book.title, book.author, book.genre, book.borrower])
