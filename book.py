@@ -3,7 +3,7 @@
 class Book:
     """Represents a book with a title, author, and genre."""
 
-    def init(self, title, author, genre, borrower=None):
+    def __init__(self, title, author, genre, borrower=None):
         """
         Initializes a new instance of the Book class with the specified title, author, genre, and optional borrower.
         Parameters:
@@ -19,3 +19,5 @@ class Book:
         self.author = author
         self.genre = genre
         self.borrower = borrower
+        self.reserved = False
+        self.reserved_by = None
