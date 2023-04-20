@@ -216,3 +216,30 @@ class Library:
                 if book.borrower is not None:
                     writer.writerow(
                         [book.title, book.author, book.genre, book.borrower])
+
+    def reserve_book(self, user, title):
+        """
+        Reserves a book that is currently checked out by setting the 'reserved' attribute to True
+        and setting the 'reserved_by' attribute to the user who requested the reservation.
+        If the book is not checked out, sets the 'borrower' attribute to the user who requested the reservation.
+
+        Parameters:
+        user (User): The user who requested the reservation.
+        title (str): The title of the book to reserve.
+
+        Returns:
+        None
+        """
+        for book in self.books:
+            if book.title == title:
+                if book.borrower is not None:
+                    book.reserved = True
+                    book.reserved_by = user
+                    print("Book reserved successfully!")
+                else:
+                    book.borrower = user
+                    print("Book checked out successfully!")
+                self.save_books()
+                self.save_checked_out_books()
+                return
+        print("Book not found.")
