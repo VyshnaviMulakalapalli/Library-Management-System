@@ -216,11 +216,11 @@ class Library:
         """
         with open('checked_out_books.csv', 'w', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow(['Title', 'Author', 'Genre', 'Borrower'])
+            writer.writerow(['Title', 'Author', 'Genre', 'Borrower', 'Checked_out_date', 'Due_date'])
             for book in self.books:
                 if book.borrower is not None:
                     writer.writerow(
-                        [book.title, book.author, book.genre, book.borrower])
+                        [book.title, book.author, book.genre, book.borrower, book.checked_out_date, book.due_date])
 
     def reserve_book(self, user, title):
         """
