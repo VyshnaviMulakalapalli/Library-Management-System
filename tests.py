@@ -78,3 +78,27 @@ class LibraryTests(unittest.TestCase):
             reader = csv.reader(file)
             for row in reader:
                 self.assertNotEqual(row[0], user1.username)
+
+    def test_calculate_fine(self):
+        """Test calculate_fine method."""
+        user1 = User("Vyshnavi", "vyshnavi", "librarian")
+        fines = user1.calculate_fine(user1.username)
+        expected_result = 0.5
+        self.assertEqual(fines, expected_result)
+
+    def test_search_books(self):
+        """Test search_books method."""
+        title_or_author_name = "BTS"
+        actual_result = len(self.library.search_books(title_or_author_name))
+        expected_result = 2
+        self.assertEqual(actual_result, expected_result)
+
+    def test_recommend_books(self):
+        """Test recommend_books method."""
+        interest = ["Fiction"]
+        result = self.library.recommend_books(interest)
+        actual_result = []
+        for book in result:
+            actual_result.append(book.title)
+        expected_result = ["Alchemist", "Harry Potter"]
+        self.assertEqual(actual_result, expected_result)
