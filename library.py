@@ -2,6 +2,7 @@ import csv
 
 from book import Book
 from user import User
+from datetime import datetime
 
 
 ## Library class
@@ -259,3 +260,28 @@ class Library:
                     recommended_books.append(book)
                     break
         return recommended_books
+
+    def check_overdue_books(self):
+        """
+        Checks the list of checked out books for any books that are currently overdue.
+
+        Reads the list of checked out books from a CSV file named 'checked_out_books.csv' and
+        compares the due date of each book to the current date. If the due date has passed,
+        prints a message indicating the book title and the name of the borrower who checked it
+        out.
+
+        Returns: Number of overdue books
+        """
+        today = datetime.datetime.today().date()
+        with open('checked_out_books.csv', 'r') as file:
+            reader = csv.DictReader(file)
+            counter = 0
+            for row in reader:
+                due_date = datetime.datetime.strptime(row['Due_date'], '%Y-%m-%d').date()
+                if today > due_date:
+                    counter = counter + 1
+                    title = row['Title']
+                    borrower = row['Borrower']
+                    print(f"{title} is overdue and is expected to be returned by {borrower}")
+
+        return counter
