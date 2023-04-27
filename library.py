@@ -2,6 +2,7 @@ import csv
 
 from book import Book
 from user import User
+from datetime import datetime
 
 
 ## Library class
@@ -18,26 +19,26 @@ class Library:
         self.load_books()
         self.users = self.load_users()
 
-    def add_book(self):
+    def add_book(self, title, author, genre):
         """
         Prompts the user to enter the details of a book and adds the book to the catalog.
         Returns:None
         """
-        title = input("Enter the title of the book: ")
-        author = input("Enter the author of the book: ")
-        genre = input("Enter the genre of the book: ")
+        # title = input("Enter the title of the book: ")
+        # author = input("Enter the author of the book: ")
+        # genre = input("Enter the genre of the book: ")
 
         book = Book(title, author, genre)
         self.books.append(book)
         self.save_books()
         print("Book added successfully!")
 
-    def remove_book(self):
+    def remove_book(self, title):
         """
         Prompts the user to enter the title of a book and removes the book from the catalog, if it is not checked out.
         Returns: None
         """
-        title = input("Enter the title of the book to remove: ")
+        # title = input("Enter the title of the book to remove: ")
         for i, book in enumerate(self.books):
             if book.title == title:
                 if book.borrower is not None:
@@ -105,6 +106,8 @@ class Library:
         if self.books[book_index].borrower is not None:
             print("This book is already checked out.")
             return
+        self.books[book_index].checked_out_date = datetime.date.today()
+        self.books[book_index].due_date = self.books[book_index].checked_out_date + datetime.timedelta(days=14)
         self.books[book_index].borrower = borrower
         print("Book checked out successfully!")
 
@@ -129,6 +132,8 @@ class Library:
         if self.books[book_index].borrower != borrower:
             print("This book is not checked out by you.")
             return
+        self.books[book_index].checked_out_date = None
+        self.books[book_index].due_date = None
         self.books[book_index].borrower = None
         print("Book returned successfully!")
 
