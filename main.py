@@ -28,14 +28,20 @@ def main():
                     print("5. Search book")
                     print("6. Reserve Book")
                     print("7. Get book recommendation")
-                    print("8. Edit account")
-                    print("9. Delete account")
-                    print("10. Log out")
+                    print("8. Notify overdue books")
+                    print("9. Calculate fines")
+                    print("10. Edit account")
+                    print("11. Delete account")
+                    print("12. Log out")
                     librarian_choice = input("Enter your choice: ")
                     if librarian_choice == "1":
-                        library.add_book()
+                        title = input("Enter the title of the book: ")
+                        author = input("Enter the author of the book: ")
+                        genre = input("Enter the genre of the book: ")
+                        library.add_book(title, author, genre)
                     elif librarian_choice == "2":
-                        library.remove_book()
+                        title = input("Enter the title of the book to remove: ")
+                        library.remove_book(title)
                     elif librarian_choice == "3":
                         borrower_name = user_type.username
                         library.checkout_book(borrower_name)
@@ -59,14 +65,19 @@ def main():
                             for book in recommended_books:
                                 print(f"- {book.title} by {book.author} ({book.genre})")
                     elif librarian_choice == "8":
+                        library.check_overdue_books()
+                    elif librarian_choice == "9":
+                        borrower_name = user_type.username
+                        user.calculate_fine(borrower_name)
+                    elif librarian_choice == "10":
                         new_username = input("Enter your username: ")
                         new_password = input("Enter your password: ")
                         new_role = input("Enter your role:(librarian or borrower)")
                         user.edit_account(new_username, new_password, new_role)
-                    elif librarian_choice == "9":
+                    elif librarian_choice == "11":
                         user.delete_account()
 
-                    elif librarian_choice == "10":
+                    elif librarian_choice == "12":
                         break
 
                     else:
@@ -80,9 +91,11 @@ def main():
                     print("3. Search Books")
                     print("4. Reserve Books")
                     print("5. Get book recommendation")
-                    print("6. Edit account")
-                    print("7. Delete account")
-                    print("8. Logout")
+                    print("6. Notify overdue books")
+                    print("7. Calculate fines")
+                    print("8. Edit account")
+                    print("9. Delete account")
+                    print("10. Logout")
                     borrower_choice = input("Enter your choice: ")
                     if borrower_choice == "1":
                         borrower_name = user_type.username
@@ -97,15 +110,31 @@ def main():
                         title = input("Enter book title name to reserve: ")
                         user = user_type.username
                         library.reserve_book(user, title)
+                    elif borrower_choice == "5":
+                        interests = input(
+                            "Enter your interests (separated by commas): ").split(
+                            ",")
+                        recommended_books = library.recommend_books(interests)
+                        if len(recommended_books) == 0:
+                            print("No books found.")
+                        else:
+                            print(f"Recommended books:")
+                            for book in recommended_books:
+                                print(
+                                    f"- {book.title} by {book.author} ({book.genre})")
                     elif borrower_choice == "6":
+                        library.check_overdue_books()
+                    elif borrower_choice == "7":
+                        borrower_name = user_type.username
+                        user.calculate_fine(borrower_name)
+                    elif borrower_choice == "8":
                         new_username = input("Enter your username: ")
                         new_password = input("Enter your password: ")
                         new_role = input("Enter your role:(librarian or borrower)")
                         user.edit_account(new_username, new_password, new_role)
-                    elif borrower_choice == "7":
+                    elif borrower_choice == "9":
                         user.delete_account()
-
-                    elif borrower_choice == "8":
+                    elif borrower_choice == "10":
                         # library.logout()
                         break
                     else:
