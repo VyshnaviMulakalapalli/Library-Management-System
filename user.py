@@ -1,5 +1,5 @@
 import csv
-
+import datetime
 # User class
 
 
@@ -71,3 +71,24 @@ class User:
             writer = csv.writer(file)
             writer.writerows(rows)
         print("Account deleted successfully")
+
+    def calculate_fine(self, borrower):
+        """
+        Calculates the fine for a borrower based on the number of days the borrower has held each book checked out.
+        Parameters:
+        borrower (str): The name of the borrower to calculate the fine for.
+        Returns:
+        fine (float): The total fine owed by the borrower.
+        """
+        fine = 0.0
+        with open('checked_out_books.csv', mode='r') as checked_out_file:
+            reader = csv.reader(checked_out_file)
+            for row in reader:
+                if row[3] == borrower:
+                    # book_title = row[0]
+                    checkout_date = datetime.datetime.strptime(row[4], '%Y-%m-%d').date()
+                    days_checked_out = (datetime.date.today() - checkout_date).days
+                    if days_checked_out > 14:
+                        fine += (days_checked_out - 14) * 0.25
+        print(f"Total fine for {borrower}: ${fine:.2f}")
+        return fine
