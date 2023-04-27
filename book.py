@@ -21,3 +21,5 @@ class Book:
         self.borrower = borrower
         self.reserved = False
         self.reserved_by = None
+        self.checked_out_date = None
+        self.due_date = None

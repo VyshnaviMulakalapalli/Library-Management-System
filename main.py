@@ -33,9 +33,13 @@ def main():
                     print("10. Log out")
                     librarian_choice = input("Enter your choice: ")
                     if librarian_choice == "1":
-                        library.add_book()
+                        title = input("Enter the title of the book: ")
+                        author = input("Enter the author of the book: ")
+                        genre = input("Enter the genre of the book: ")
+                        library.add_book(title, author, genre)
                     elif librarian_choice == "2":
-                        library.remove_book()
+                        title = input("Enter the title of the book to remove: ")
+                        library.remove_book(title)
                     elif librarian_choice == "3":
                         borrower_name = user_type.username
                         library.checkout_book(borrower_name)
