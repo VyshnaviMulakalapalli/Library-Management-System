@@ -29,3 +29,9 @@ class LibraryTests(unittest.TestCase):
 
         # Assert that the book has been removed from the library's catalog
         self.assertFalse(any(book.title == "Test Book1" for book in self.library.books))
+
+    def test_check_overdue_books(self):
+        """Test check_overdue_books method."""
+        overdue_books = self.library.check_overdue_books()
+        expected_result = 1
+        self.assertEqual(overdue_books, expected_result)
