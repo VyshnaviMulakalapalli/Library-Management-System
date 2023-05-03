@@ -109,6 +109,7 @@ class Library:
         self.books[book_index].checked_out_date = datetime.date.today()
         self.books[book_index].due_date = self.books[book_index].checked_out_date + datetime.timedelta(days=14)
         self.books[book_index].borrower = borrower
+        self.save_checked_out_books()
         print("Book checked out successfully!")
 
     def return_book(self, borrower):
@@ -265,7 +266,7 @@ class Library:
                     break
         return recommended_books
 
-    def check_overdue_books(self):
+    def check_overdue_books(self, borrower):
         """
         Checks the list of checked out books for any books that are currently overdue.
 
@@ -281,11 +282,12 @@ class Library:
             reader = csv.DictReader(file)
             counter = 0
             for row in reader:
-                due_date = datetime.datetime.strptime(row['Due_date'], '%Y-%m-%d').date()
-                if today > due_date:
-                    counter = counter + 1
-                    title = row['Title']
-                    borrower = row['Borrower']
-                    print(f"{title} is overdue and is expected to be returned by {borrower}")
+                if row['Borrower'] == borrower:
+                    due_date = datetime.datetime.strptime(row['Due_date'], '%Y-%m-%d').date()
+                    if today > due_date:
+                        counter = counter + 1
+                        title = row['Title']
+                        borrower = row['Borrower']
+                        print(f"{title} is overdue and is expected to be returned by {borrower}")
 
         return counter
