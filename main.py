@@ -125,7 +125,8 @@ def main():
                                 print(
                                     f"- {book.title} by {book.author} ({book.genre})")
                     elif borrower_choice == "6":
-                        library.check_overdue_books()
+                        borrower_name = user_type.username
+                        library.check_overdue_books(borrower_name)
                     elif borrower_choice == "7":
                         borrower_name = user_type.username
                         user.calculate_fine(borrower_name)

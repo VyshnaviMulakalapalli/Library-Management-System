@@ -5,7 +5,7 @@ from user import User
 import datetime
 
 
-## Library class
+# Library class
 class Library:
     """Represents a library with a catalog of books and a list of registered users."""
 
@@ -244,6 +244,8 @@ class Library:
                     print("Book reserved successfully!")
                 else:
                     book.borrower = user
+                    book.checked_out_date = datetime.date.today()
+                    book.due_date = book.checked_out_date + datetime.timedelta(days=14)
                     print("Book checked out successfully!")
                 self.save_books()
                 self.save_checked_out_books()
