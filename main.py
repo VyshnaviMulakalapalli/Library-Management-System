@@ -65,7 +65,8 @@ def main():
                             for book in recommended_books:
                                 print(f"- {book.title} by {book.author} ({book.genre})")
                     elif librarian_choice == "8":
-                        library.check_overdue_books()
+                        borrower_name = user_type.username
+                        library.check_overdue_books(borrower_name)
                     elif librarian_choice == "9":
                         borrower_name = user_type.username
                         user.calculate_fine(borrower_name)
@@ -76,6 +77,7 @@ def main():
                         user.edit_account(new_username, new_password, new_role)
                     elif librarian_choice == "11":
                         user.delete_account()
+                        break
 
                     elif librarian_choice == "12":
                         break
@@ -123,7 +125,8 @@ def main():
                                 print(
                                     f"- {book.title} by {book.author} ({book.genre})")
                     elif borrower_choice == "6":
-                        library.check_overdue_books()
+                        borrower_name = user_type.username
+                        library.check_overdue_books(borrower_name)
                     elif borrower_choice == "7":
                         borrower_name = user_type.username
                         user.calculate_fine(borrower_name)
@@ -134,6 +137,7 @@ def main():
                         user.edit_account(new_username, new_password, new_role)
                     elif borrower_choice == "9":
                         user.delete_account()
+                        break
                     elif borrower_choice == "10":
                         # library.logout()
                         break

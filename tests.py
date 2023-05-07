@@ -32,7 +32,8 @@ class LibraryTests(unittest.TestCase):
 
     def test_check_overdue_books(self):
         """Test check_overdue_books method."""
-        overdue_books = self.library.check_overdue_books()
+        user1 = User("johndoe", "password123", "Borrower")
+        overdue_books = self.library.check_overdue_books(user1.username)
         expected_result = 1
         self.assertEqual(overdue_books, expected_result)
 
